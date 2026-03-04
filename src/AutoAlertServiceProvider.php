@@ -24,7 +24,7 @@ class AutoAlertServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot(Kernel $kernel)
+    public function boot()
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -37,6 +37,6 @@ class AutoAlertServiceProvider extends ServiceProvider
         }
 
         // Register Global Middleware
-        $kernel->pushMiddleware(Middleware\AutoAlertMiddleware::class);
+        $this->app['router']->pushMiddlewareToGroup('web', Middleware\AutoAlertMiddleware::class);
     }
 }
